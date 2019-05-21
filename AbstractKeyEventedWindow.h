@@ -8,6 +8,10 @@
 #include "KeyCombination.h"
 #include <gtkmm/window.h>
 
+/**
+ * Абстрактный класс, унаследованный от Gtk::Window, обрабатывающий нажатия сочетаний клавиш.
+ * При нажатии клавиши вызывается виртуальный метод onKeyCombinationPressed().
+ */
 class AbstractKeyEventedWindow : public Gtk::Window {
 
 public:
@@ -19,10 +23,9 @@ protected:
     bool on_key_release_event(GdkEventKey *key_event) override final;
 
 protected:
+    /// Нажато сочетание клавиш
+    /// \param keyCombination Сочетание клавиш
     virtual void onKeyCombinationPressed(const KeyCombination &keyCombination) = 0;
-
-private:
-    KeyCombination::Modifier _modifier;
 };
 
 

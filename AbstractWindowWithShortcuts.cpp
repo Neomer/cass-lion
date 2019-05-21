@@ -15,6 +15,8 @@ AbstractWindowWithShortcuts::~AbstractWindowWithShortcuts() {
 void AbstractWindowWithShortcuts::onKeyCombinationPressed(const KeyCombination &keyCombination) {
     if (keyCombination.is(GDK_KEY_F3)) {
         onSearchRequest();
+    } else {
+        onUnrecognizedShortcut(keyCombination);
     }
 }
 

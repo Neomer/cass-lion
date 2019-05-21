@@ -19,7 +19,7 @@ MainWindow::MainWindow() :
 
 MainWindow::~MainWindow()
 {
-
+    //TODO: closing request window
 }
 
 void MainWindow::onSearchRequest() const {

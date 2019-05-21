@@ -7,6 +7,11 @@
 
 #include "AbstractKeyEventedWindow.h"
 
+/**
+ * Абстрактный класс, обрабатывающий стандартные сочетания клавиш.
+ * При обнаружении известного сочетания клавиш, вызывается соответствующий виртуальный метод, любой из которых может быть переопределен в наследниках.
+ * Если же сочетание не опознано, то сочетание клавиш отправляется в метод onUnrecognizedShortcut(const KeyCombination &keyCombination).
+ */
 class AbstractWindowWithShortcuts : public AbstractKeyEventedWindow {
 public:
     AbstractWindowWithShortcuts();
@@ -18,6 +23,7 @@ protected:
 
 protected:
     virtual void onSearchRequest() const;
+    virtual void onUnrecognizedShortcut(const KeyCombination &keyCombination) = 0;
 };
 
 
