@@ -17,7 +17,12 @@ add_executable(${PROJECT_NAME} main.cpp
         AbstractKeyEventedWindow.cpp AbstractKeyEventedWindow.h
         KeyCombination.cpp KeyCombination.h
         AbstractWindowWithShortcuts.cpp AbstractWindowWithShortcuts.h
-        Database/AbstractDatabaseDriver.cpp Database/AbstractDatabaseDriver.h)
+        Database/AbstractDatabaseDriver.cpp Database/AbstractDatabaseDriver.h
+        Database/PostgreSql/PostgreSqlDriver.cpp
+        Database/PostgreSql/PostgreSqlDriver.h
+        Database/AbstractDatabaseConfiguration.cpp
+        Database/AbstractDatabaseConfiguration.h
+        Database/AbstractDatabaseConnectionPool.cpp Database/AbstractDatabaseConnectionPool.h Database/AbstractDatabaseConnection.cpp Database/AbstractDatabaseConnection.h)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${PostgreSQL_LIBRARIES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${GTKMM3_LIBRARIES})

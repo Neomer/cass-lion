@@ -3,3 +3,7 @@
 //
 
 #include "AbstractDatabaseDriver.h"
+
+AbstractDatabaseDriver::AbstractDatabaseDriver(const AbstractDatabaseConfiguration &&configuration) : _configuration{ configuration } {
+
+}

@@ -5,13 +5,20 @@
 #ifndef CASS_LION_ABSTRACTDATABASEDRIVER_H
 #define CASS_LION_ABSTRACTDATABASEDRIVER_H
 
+#include <memory>
+#include "AbstractDatabaseConfiguration.h"
+#include "AbstractDatabaseConnection.h"
+
 class AbstractDatabaseDriver {
 public:
-    AbstractDatabaseDriver() = default;
+    AbstractDatabaseDriver(const AbstractDatabaseConfiguration &&configuration);
     virtual ~AbstractDatabaseDriver() = default;
 
-    virtual void open() = 0;
+    virtual std::shared_ptr<AbstractDatabaseConnection> open() = 0;
     virtual void close() = 0;
+
+protected:
+    const AbstractDatabaseConfiguration &_configuration;
 };
 
 
