@@ -7,7 +7,9 @@
 
 
 class AbstractDatabaseConfiguration {
-
+public:
+    AbstractDatabaseConfiguration();
+    virtual ~AbstractDatabaseConfiguration();
 };
 
 

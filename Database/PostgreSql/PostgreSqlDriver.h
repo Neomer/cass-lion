@@ -9,13 +9,15 @@
 
 class PostgreSqlDriver : public AbstractDatabaseDriver {
 public:
-    PostgreSqlDriver(const AbstractDatabaseConfiguration &&configuration);
+    PostgreSqlDriver(AbstractDatabaseConfiguration* configuration);
 
     ~PostgreSqlDriver() override;
 
-    void open() override;
+    std::shared_ptr<AbstractDatabaseConnection> open() override;
 
     void close() override;
+
+    const char *getDatabaseDriverName() override;
 };
 
 

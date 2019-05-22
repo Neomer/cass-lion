@@ -7,6 +7,9 @@
 
 
 class AbstractDatabaseConnection {
+public:
+    AbstractDatabaseConnection();
+    virtual ~AbstractDatabaseConnection();
 
 };
 

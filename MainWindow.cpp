@@ -26,3 +26,8 @@ void MainWindow::onSearchRequest() const {
 
 }
 
+void MainWindow::onUnrecognizedShortcut(const KeyCombination &keyCombination)
+{
+
+}
+

@@ -4,6 +4,13 @@
 
 #include "AbstractDatabaseDriver.h"
 
-AbstractDatabaseDriver::AbstractDatabaseDriver(const AbstractDatabaseConfiguration &&configuration) : _configuration{ configuration } {
+AbstractDatabaseDriver::AbstractDatabaseDriver(AbstractDatabaseConfiguration *configuration) :
+    _configuration{ configuration }
+{
 
+}
+
+const AbstractDatabaseConfiguration *AbstractDatabaseDriver::getConfiguration() const
+{
+    return _configuration;
 }

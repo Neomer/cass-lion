@@ -19,6 +19,7 @@ public:
 
 protected:
     void onSearchRequest() const override;
+    void onUnrecognizedShortcut(const KeyCombination &keyCombination) override;
 
 private:
     Gtk::Box _mainLayout, _contentLayout;

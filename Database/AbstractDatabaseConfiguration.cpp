@@ -3,3 +3,9 @@
 //
 
 #include "AbstractDatabaseConfiguration.h"
+
+AbstractDatabaseConfiguration::AbstractDatabaseConfiguration() {}
+
+AbstractDatabaseConfiguration::~AbstractDatabaseConfiguration() {
+
+}

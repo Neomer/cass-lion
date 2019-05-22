@@ -11,14 +11,23 @@
 
 class AbstractDatabaseDriver {
 public:
-    AbstractDatabaseDriver(const AbstractDatabaseConfiguration &&configuration);
+    AbstractDatabaseDriver(AbstractDatabaseConfiguration *configuration);
     virtual ~AbstractDatabaseDriver() = default;
 
+    /// Создает новое подключение к базе данных. Подключается к базе данных, используя переданную конфигурацию.
+    /// \return Указатель на новое подключение
+    /// \throws DatabaseConnectionRefusedException Не удалось подключиться к базе данных
     virtual std::shared_ptr<AbstractDatabaseConnection> open() = 0;
+
     virtual void close() = 0;
 
+    virtual const char *getDatabaseDriverName() = 0;
+
 protected:
-    const AbstractDatabaseConfiguration &_configuration;
+    const AbstractDatabaseConfiguration *getConfiguration() const;
+
+private:
+    AbstractDatabaseConfiguration *_configuration;
 };
 
 
