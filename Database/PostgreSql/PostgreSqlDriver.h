@@ -15,8 +15,6 @@ public:
 
     std::shared_ptr<AbstractDatabaseConnection> open() override;
 
-    void close() override;
-
     const char *getDatabaseDriverName() override;
 };
 

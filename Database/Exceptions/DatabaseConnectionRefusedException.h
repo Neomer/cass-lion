@@ -13,6 +13,8 @@ public:
     explicit DatabaseConnectionRefusedException(const AbstractDatabaseDriver *driver);
 
     explicit DatabaseConnectionRefusedException(const AbstractDatabaseDriver *driver, std::string_view message);
+
+    ~DatabaseConnectionRefusedException() override;
 };
 
 

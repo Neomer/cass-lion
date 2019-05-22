@@ -17,10 +17,6 @@ PostgreSqlDriver::~PostgreSqlDriver() {
 
 }
 
-void PostgreSqlDriver::close() {
-
-}
-
 std::shared_ptr<AbstractDatabaseConnection> PostgreSqlDriver::open()
 {
     const PostgresqlDatabaseConfiguration *pg_conf = static_cast<const PostgresqlDatabaseConfiguration *>(AbstractDatabaseDriver::getConfiguration());

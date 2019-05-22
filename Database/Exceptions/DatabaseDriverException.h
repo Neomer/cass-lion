@@ -15,7 +15,7 @@ public:
 
     explicit DatabaseDriverException(const AbstractDatabaseDriver *driver, std::string_view message);
 
-    ~DatabaseDriverException() override;
+    virtual ~DatabaseDriverException() override;
 
     const AbstractDatabaseDriver *getDriver() const;
 

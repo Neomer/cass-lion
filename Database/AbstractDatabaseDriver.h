@@ -19,8 +19,6 @@ public:
     /// \throws DatabaseConnectionRefusedException Не удалось подключиться к базе данных
     virtual std::shared_ptr<AbstractDatabaseConnection> open() = 0;
 
-    virtual void close() = 0;
-
     virtual const char *getDatabaseDriverName() = 0;
 
 protected:

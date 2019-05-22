@@ -16,3 +16,8 @@ DatabaseConnectionRefusedException::DatabaseConnectionRefusedException(const Abs
 {
 
 }
+
+DatabaseConnectionRefusedException::~DatabaseConnectionRefusedException()
+{
+
+}
