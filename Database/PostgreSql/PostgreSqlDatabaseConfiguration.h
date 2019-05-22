@@ -7,10 +7,10 @@
 
 #include "../AbstractDatabaseConfiguration.h"
 
-class PostgresqlDatabaseConfiguration : public AbstractDatabaseConfiguration {
+class PostgreSqlDatabaseConfiguration : public AbstractDatabaseConfiguration {
 public:
-    PostgresqlDatabaseConfiguration();
-    ~PostgresqlDatabaseConfiguration() override;
+    PostgreSqlDatabaseConfiguration();
+    ~PostgreSqlDatabaseConfiguration() override;
 
     const char *getHost() const;
 

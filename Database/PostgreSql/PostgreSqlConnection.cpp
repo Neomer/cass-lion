@@ -5,7 +5,8 @@
 #include "PostgreSqlConnection.h"
 
 PostgreSqlConnection::PostgreSqlConnection(PGconn *conn) :
-        AbstractDatabaseConnection()
+        AbstractDatabaseConnection(),
+        _connection{ conn }
 {
 
 }
@@ -13,4 +14,14 @@ PostgreSqlConnection::PostgreSqlConnection(PGconn *conn) :
 PostgreSqlConnection::~PostgreSqlConnection()
 {
 
+}
+
+void PostgreSqlConnection::close() noexcept
+{
+    PQfinish(_connection);
+}
+
+std::shared_ptr<AbstractDatabaseQuery> PostgreSqlConnection::execute(std::string_view sql) const
+{
+    return std::shared_ptr<AbstractDatabaseQuery>();
 }

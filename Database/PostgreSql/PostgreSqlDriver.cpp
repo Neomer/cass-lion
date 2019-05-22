@@ -3,7 +3,7 @@
 //
 #include <libpq-fe.h>
 #include "PostgreSqlDriver.h"
-#include "PostgresqlDatabaseConfiguration.h"
+#include "PostgreSqlDatabaseConfiguration.h"
 #include "PostgreSqlConnection.h"
 #include "../Exceptions/DatabaseConnectionRefusedException.h"
 
@@ -19,7 +19,7 @@ PostgreSqlDriver::~PostgreSqlDriver() {
 
 std::shared_ptr<AbstractDatabaseConnection> PostgreSqlDriver::open()
 {
-    const PostgresqlDatabaseConfiguration *pg_conf = static_cast<const PostgresqlDatabaseConfiguration *>(AbstractDatabaseDriver::getConfiguration());
+    const PostgreSqlDatabaseConfiguration *pg_conf = static_cast<const PostgreSqlDatabaseConfiguration *>(AbstractDatabaseDriver::getConfiguration());
 
     auto conn = PQsetdbLogin(
             pg_conf->getHost(),

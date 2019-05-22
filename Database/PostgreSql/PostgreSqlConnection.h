@@ -13,6 +13,13 @@ class PostgreSqlConnection : public AbstractDatabaseConnection
 public:
     PostgreSqlConnection(PGconn *conn);
     ~PostgreSqlConnection() override;
+
+    void close() noexcept override;
+
+    std::shared_ptr<AbstractDatabaseQuery> execute(std::string_view sql) const override;
+
+private:
+    PGconn *_connection;
 };
 
 

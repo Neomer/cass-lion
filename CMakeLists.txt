@@ -22,7 +22,7 @@ add_executable(${PROJECT_NAME} main.cpp
         Database/PostgreSql/PostgreSqlDriver.h
         Database/AbstractDatabaseConfiguration.cpp
         Database/AbstractDatabaseConfiguration.h
-        Database/AbstractDatabaseConnectionPool.cpp Database/AbstractDatabaseConnectionPool.h Database/AbstractDatabaseConnection.cpp Database/AbstractDatabaseConnection.h Database/PostgreSql/PostgresqlDatabaseConfiguration.cpp Database/PostgreSql/PostgresqlDatabaseConfiguration.h Database/PostgreSql/PostgreSqlConnection.cpp Database/PostgreSql/PostgreSqlConnection.h Exceptions/Exception.cpp Exceptions/Exception.h Database/Exceptions/DatabaseDriverException.cpp Database/Exceptions/DatabaseDriverException.h Database/Exceptions/DatabaseConnectionRefusedException.cpp Database/Exceptions/DatabaseConnectionRefusedException.h)
+        Database/AbstractDatabaseConnectionPool.cpp Database/AbstractDatabaseConnectionPool.h Database/AbstractDatabaseConnection.cpp Database/AbstractDatabaseConnection.h Database/PostgreSql/PostgreSqlDatabaseConfiguration.cpp Database/PostgreSql/PostgreSqlDatabaseConfiguration.h Database/PostgreSql/PostgreSqlConnection.cpp Database/PostgreSql/PostgreSqlConnection.h Exceptions/Exception.cpp Exceptions/Exception.h Database/Exceptions/DatabaseDriverException.cpp Database/Exceptions/DatabaseDriverException.h Database/Exceptions/DatabaseConnectionRefusedException.cpp Database/Exceptions/DatabaseConnectionRefusedException.h Database/AbstractDatabaseQuery.cpp Database/AbstractDatabaseQuery.h Database/PostgreSql/PostgreSqlQuery.cpp Database/PostgreSql/PostgreSqlQuery.h)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${PostgreSQL_LIBRARIES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${GTKMM3_LIBRARIES})
