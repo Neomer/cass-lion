@@ -8,6 +8,7 @@
 #include <memory>
 #include <string_view>
 #include "AbstractDatabaseQuery.h"
+#include "QueryResultCallback.h"
 
 class AbstractDatabaseConnection {
 public:
@@ -15,6 +16,7 @@ public:
     virtual ~AbstractDatabaseConnection();
 
     virtual std::shared_ptr<AbstractDatabaseQuery> execute(std::string_view sql) const = 0;
+
     virtual void close() noexcept = 0;
 };
 
