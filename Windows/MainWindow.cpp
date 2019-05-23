@@ -4,7 +4,7 @@
 #include <glib.h>
 #include <iostream>
 #include "MainWindow.h"
-#include "ApplicationContext.h"
+#include "../ApplicationContext.h"
 
 MainWindow::MainWindow() :
     AbstractWindowWithShortcuts(),

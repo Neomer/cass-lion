@@ -9,7 +9,7 @@
 #include <gtkmm/box.h>
 #include <gtkmm/menubar.h>
 
-#include "AbstractWindowWithShortcuts.h"
+#include "../AbstractWindowWithShortcuts.h"
 
 class MainWindow : public AbstractWindowWithShortcuts
 {

@@ -13,7 +13,7 @@ INCLUDE_DIRECTORIES(${GTKMM3_INCLUDE_DIRS})
 LINK_DIRECTORIES(${GTKMM3_LIBRARY_DIRS})
 
 add_executable(${PROJECT_NAME} main.cpp
-        MainWindow.cpp MainWindow.h
+        Windows/MainWindow.cpp Windows/MainWindow.h
         AbstractKeyEventedWindow.cpp AbstractKeyEventedWindow.h
         KeyCombination.cpp KeyCombination.h
         AbstractWindowWithShortcuts.cpp AbstractWindowWithShortcuts.h
@@ -36,7 +36,7 @@ add_executable(${PROJECT_NAME} main.cpp
         Async/Exceptions/BackgroundExecutorAlreadyBusy.cpp Async/Exceptions/BackgroundExecutorAlreadyBusy.h
         Async/AsyncCallback.h
         Database/QueryResultCallback.cpp Database/QueryResultCallback.h
-        ApplicationContext.cpp ApplicationContext.h)
+        ApplicationContext.cpp ApplicationContext.h Windows/DatabaseConnectionStatusWidget.cpp Windows/DatabaseConnectionStatusWidget.h)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${PostgreSQL_LIBRARIES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${GTKMM3_LIBRARIES})

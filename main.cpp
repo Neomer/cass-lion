@@ -1,6 +1,6 @@
 #include <iostream>
 #include <gtkmm/application.h>
-#include "MainWindow.h"
+#include "Windows/MainWindow.h"
 #include "ApplicationContext.h"
 
 int main(int argc, char **argv) {
