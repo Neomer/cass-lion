@@ -16,6 +16,7 @@ public:
     virtual ~AbstractDatabaseConnection();
 
     virtual std::shared_ptr<AbstractDatabaseQuery> execute(std::string_view sql) const = 0;
+    virtual void beginExecute(std::string_view sql, AsyncCallback<std::shared_ptr<AbstractDatabaseQuery>> &callback) const = 0;
 
     virtual void close() noexcept = 0;
 };

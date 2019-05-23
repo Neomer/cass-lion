@@ -3,6 +3,7 @@
 //
 
 #include "PostgreSqlConnection.h"
+#include "PostgreSqlQuery.h"
 
 PostgreSqlConnection::PostgreSqlConnection(PGconn *conn) :
         AbstractDatabaseConnection(),
@@ -23,5 +24,12 @@ void PostgreSqlConnection::close() noexcept
 
 std::shared_ptr<AbstractDatabaseQuery> PostgreSqlConnection::execute(std::string_view sql) const
 {
-    return std::shared_ptr<AbstractDatabaseQuery>();
+    auto query = PQexec(_connection, sql.data());
+    return std::shared_ptr<AbstractDatabaseQuery>(new PostgreSqlQuery(query));
+}
+
+void PostgreSqlConnection::beginExecute(std::string_view sql,
+                                        AsyncCallback<std::shared_ptr<AbstractDatabaseQuery>> &callback) const
+{
+
 }

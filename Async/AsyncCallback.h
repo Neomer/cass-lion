@@ -5,20 +5,13 @@
 #ifndef CASS_LION_ASYNCCALLBACK_H
 #define CASS_LION_ASYNCCALLBACK_H
 
-#include <optional>
+#include "../Exceptions/Exception.h"
 
-template<typename TResult>
+template<typename TResult, typename TException = Exception>
 class AsyncCallback
 {
 public:
-    AsyncCallback() :
-        _result{ std::nullopt_t }
-    {
-
-    }
-
-    AsyncCallback(TResult result) :
-        _result{ result }
+    AsyncCallback()
     {
 
     }
@@ -28,13 +21,10 @@ public:
 
     }
 
-    std::optional<TResult> result() const
-    {
-        return _result;
-    }
+    virtual void onComplete(const TResult &result) = 0;
 
-private:
-    std::optional<TResult> _result;
+    virtual void onError(const TException &exception) = 0;
+
 };
 
 

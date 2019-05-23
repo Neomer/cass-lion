@@ -10,13 +10,17 @@ QueryResultCallback::QueryResultCallback() :
 
 }
 
-QueryResultCallback::QueryResultCallback(std::shared_ptr<AbstractDatabaseQuery> result) :
-        AsyncCallback(result)
+QueryResultCallback::~QueryResultCallback()
 {
 
 }
 
-QueryResultCallback::~QueryResultCallback()
+void QueryResultCallback::onComplete(const std::shared_ptr<AbstractDatabaseQuery> &result)
+{
+
+}
+
+void QueryResultCallback::onError(const Exception &exception)
 {
 
 }

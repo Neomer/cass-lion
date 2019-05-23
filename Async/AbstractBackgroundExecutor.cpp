@@ -29,7 +29,14 @@ void AbstractBackgroundExecutor::taskProc()
     while (_run.load()) {
         _condVar.wait(uniq);
         if (_task.load() != nullptr) {
-            _task.load()->execute();
+            try
+            {
+                _task.load()->execute();
+            }
+            catch (Exception &e)
+            {
+
+            }
         }
     }
 }

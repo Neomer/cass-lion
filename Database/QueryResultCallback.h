@@ -14,9 +14,11 @@ class QueryResultCallback : public AsyncCallback<std::shared_ptr<AbstractDatabas
 public:
     QueryResultCallback();
 
-    QueryResultCallback(std::shared_ptr<AbstractDatabaseQuery> result);
-
     ~QueryResultCallback() override;
+
+    void onComplete(const std::shared_ptr<AbstractDatabaseQuery> &result) override;
+
+    void onError(const Exception &exception) override;
 };
 
 
