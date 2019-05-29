@@ -3,3 +3,13 @@
 //
 
 #include "AbstractDatabaseConnectionPool.h"
+
+AbstractDatabaseConnectionPool::AbstractDatabaseConnectionPool()
+{
+
+}
+
+AbstractDatabaseConnectionPool::~AbstractDatabaseConnectionPool()
+{
+
+}

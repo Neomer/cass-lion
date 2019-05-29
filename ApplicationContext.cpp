@@ -29,3 +29,8 @@ void ApplicationContext::unload(std::string_view filename) const
 {
 
 }
+
+const std::shared_ptr<AbstractLogger> &ApplicationContext::logger() const
+{
+    return _logger;
+}

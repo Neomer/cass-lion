@@ -38,3 +38,28 @@ bool PostgreSqlQuery::valid() const noexcept
 {
     return _result != nullptr;
 }
+
+bool PostgreSqlQuery::next()
+{
+    return false;
+}
+
+size_t PostgreSqlQuery::rows() const
+{
+    return 0;
+}
+
+uint16_t PostgreSqlQuery::columns() const
+{
+    return 0;
+}
+
+uint16_t PostgreSqlQuery::columnByName(std::string_view name) const
+{
+    return 0;
+}
+
+std::shared_ptr<AbstractQueryValue> PostgreSqlQuery::value(uint16_t column) const
+{
+    return std::shared_ptr<AbstractQueryValue>();
+}

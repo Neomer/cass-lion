@@ -11,8 +11,8 @@
 class PostgreSqlConnection : public AbstractDatabaseConnection
 {
 public:
-    PostgreSqlConnection(PGconn *conn);
-    ~PostgreSqlConnection() override;
+    explicit PostgreSqlConnection(PGconn *conn);
+    ~PostgreSqlConnection();
 
     void close() noexcept override;
 
@@ -20,8 +20,17 @@ public:
 
     void beginExecute(std::string_view sql, AsyncCallback<std::shared_ptr<AbstractDatabaseQuery>> &callback) const override;
 
+    void beginTransaction(IsolationLevel isolationLevel) override;
+
+    void commitTransaction() override;
+
+    void rollbackTransaction() override;
+
+    bool isInTransaction() const noexcept override;
+
 private:
     PGconn *_connection;
+    bool _inTransaction;
 };
 
 

@@ -3,13 +3,3 @@
 //
 
 #include "AbstractDatabaseConnection.h"
-
-AbstractDatabaseConnection::AbstractDatabaseConnection()
-{
-
-}
-
-AbstractDatabaseConnection::~AbstractDatabaseConnection()
-{
-
-}

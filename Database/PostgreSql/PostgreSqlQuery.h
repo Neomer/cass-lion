@@ -13,7 +13,7 @@ class PostgreSqlQuery : public AbstractDatabaseQuery
 public:
     PostgreSqlQuery(PGresult *result);
 
-    ~PostgreSqlQuery() override;
+    ~PostgreSqlQuery();
 
     bool first() override;
 
@@ -22,6 +22,16 @@ public:
     void close() noexcept override;
 
     bool valid() const noexcept override;
+
+    bool next() override;
+
+    size_t rows() const override;
+
+    uint16_t columns() const override;
+
+    uint16_t columnByName(std::string_view name) const override;
+
+    std::shared_ptr<AbstractQueryValue> value(uint16_t column) const override;
 
 private:
     PGresult *_result;

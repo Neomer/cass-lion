@@ -12,11 +12,32 @@
 
 class AbstractDatabaseConnection {
 public:
-    AbstractDatabaseConnection();
-    virtual ~AbstractDatabaseConnection();
+    enum IsolationLevel
+    {
+        Serializable,
+        RepeatableRead,
+        ReadCommitted,
+        ReadUncommitted
+    };
 
+    /**
+     *
+     * @param sql
+     * @return
+     * @throws QueryExecuteException
+     */
     virtual std::shared_ptr<AbstractDatabaseQuery> execute(std::string_view sql) const = 0;
     virtual void beginExecute(std::string_view sql, AsyncCallback<std::shared_ptr<AbstractDatabaseQuery>> &callback) const = 0;
+
+    virtual void beginTransaction(IsolationLevel isolationLevel = ReadCommitted) = 0;
+
+    /**
+     * \throws QueryExecuteException
+     */
+    virtual void commitTransaction() = 0;
+    virtual void rollbackTransaction() = 0;
+    virtual bool isInTransaction() const noexcept = 0;
+
 
     virtual void close() noexcept = 0;
 };
