@@ -9,7 +9,7 @@
 #include <gtkmm/box.h>
 #include <gtkmm/menubar.h>
 
-#include "AbstractWindowWithShortcuts.h"
+#include "../AbstractWindowWithShortcuts.h"
 
 class MainWindow : public AbstractWindowWithShortcuts
 {
@@ -19,6 +19,7 @@ public:
 
 protected:
     void onSearchRequest() const override;
+    void onUnrecognizedShortcut(const KeyCombination &keyCombination) override;
 
 private:
     Gtk::Box _mainLayout, _contentLayout;

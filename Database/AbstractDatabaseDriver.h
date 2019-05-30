@@ -5,13 +5,27 @@
 #ifndef CASS_LION_ABSTRACTDATABASEDRIVER_H
 #define CASS_LION_ABSTRACTDATABASEDRIVER_H
 
+#include <memory>
+#include "AbstractDatabaseConfiguration.h"
+#include "AbstractDatabaseConnection.h"
+
 class AbstractDatabaseDriver {
 public:
-    AbstractDatabaseDriver() = default;
+    AbstractDatabaseDriver(AbstractDatabaseConfiguration *configuration);
     virtual ~AbstractDatabaseDriver() = default;
 
-    virtual void open() = 0;
-    virtual void close() = 0;
+    /// Создает новое подключение к базе данных. Подключается к базе данных, используя переданную конфигурацию.
+    /// \return Указатель на новое подключение
+    /// \throws DatabaseConnectionRefusedException Не удалось подключиться к базе данных
+    virtual std::shared_ptr<AbstractDatabaseConnection> open() = 0;
+
+    virtual const char *getDatabaseDriverName() = 0;
+
+protected:
+    const AbstractDatabaseConfiguration *getConfiguration() const;
+
+private:
+    AbstractDatabaseConfiguration *_configuration;
 };
 
 
