@@ -28,7 +28,7 @@ public:
 
     virtual int64_t toInt64() const = 0;
 
-    virtual std::string &toString() const = 0;
+    virtual std::string toString() const = 0;
 
     virtual bool toBool() const = 0;
 

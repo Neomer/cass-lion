@@ -44,7 +44,8 @@ void PostgreSqlDatabasePatcher::patch()
     else
     {
         query->close();
-        query = getConnection()->execute("SELECT `Version` FROM public.\"DatabaseInformation\";");
+        query = getConnection()->execute(R"(SELECT "Version" FROM public."DatabaseInformation";)");
+
         if (!query->valid() && !query->first())
         {
             ApplicationContext::getInstance().logger()->debug("Не удалось узнать установленную версию базы данных.");
@@ -61,12 +62,12 @@ void PostgreSqlDatabasePatcher::patch()
     auto currentVersion = patches.rbegin()->get()->version();
     ApplicationContext::getInstance().logger()->debug("Текущая версия базы данных: " + std::to_string(startPatch) + " Актуальная версия базы данных: " + std::to_string(currentVersion));
 
-    if (startPatch < currentVersion)
+    if (startPatch == -1 || static_cast<uint32_t >(startPatch) < currentVersion)
     {
         auto connection = getConnection();
         for (auto patch : patches)
         {
-            if (patch->version() >= startPatch)
+            if (startPatch == -1 || static_cast<uint32_t >(startPatch) < patch->version())
             {
                 connection->beginTransaction();
                 try
@@ -82,10 +83,15 @@ void PostgreSqlDatabasePatcher::patch()
             }
         }
     }
+    else
+    {
+        ApplicationContext::getInstance().logger()->debug("База данных находится в актуальном состоянии, обновление не требуется.");
+    }
 }
 
 const std::vector<std::shared_ptr<AbstractDatabasePatch>> PostgreSqlDatabasePatcher::patchList() const noexcept
 {
+    // Сюда все патчи
     auto vector = std::vector<std::shared_ptr<AbstractDatabasePatch>> {
         std::shared_ptr<AbstractDatabasePatch>(new InitialPatch())
     };

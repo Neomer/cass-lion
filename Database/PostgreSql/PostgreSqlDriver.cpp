@@ -30,9 +30,10 @@ std::shared_ptr<AbstractDatabaseConnection> PostgreSqlDriver::open()
             pg_conf->getUsername(),
             pg_conf->getPassword());
 
-    if (!conn)
+    auto status = PQstatus(conn);
+    if (status == CONNECTION_BAD)
     {
-        throw DatabaseConnectionRefusedException(this);
+        throw DatabaseConnectionRefusedException(this, PQerrorMessage(conn));
     }
 
     return std::shared_ptr<AbstractDatabaseConnection>(new PostgreSqlConnection(conn));

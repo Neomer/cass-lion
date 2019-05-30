@@ -17,7 +17,7 @@ public:
 
     bool first() override;
 
-    bool eof() const override;
+    inline bool eof() const override;
 
     void close() noexcept override;
 
@@ -35,6 +35,8 @@ public:
 
 private:
     PGresult *_result;
+    size_t _currentRow, _rowCount;
+    uint16_t _columnCount;
 };
 
 

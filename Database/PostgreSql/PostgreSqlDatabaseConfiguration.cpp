@@ -4,13 +4,13 @@
 
 #include "PostgreSqlDatabaseConfiguration.h"
 
-PostgreSqlDatabaseConfiguration::PostgreSqlDatabaseConfiguration() : AbstractDatabaseConfiguration() {
+PostgreSqlDatabaseConfiguration::PostgreSqlDatabaseConfiguration() :
+    AbstractDatabaseConfiguration()
+{
 
 }
 
-PostgreSqlDatabaseConfiguration::~PostgreSqlDatabaseConfiguration() {
-
-}
+PostgreSqlDatabaseConfiguration::~PostgreSqlDatabaseConfiguration() = default;
 
 const char *PostgreSqlDatabaseConfiguration::getHost() const {
     return _host;

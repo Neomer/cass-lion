@@ -32,6 +32,7 @@ public:
     virtual uint16_t columnByName(std::string_view name) const = 0;
 
     virtual std::shared_ptr<AbstractQueryValue> value(uint16_t column) const = 0;
+
 };
 
 

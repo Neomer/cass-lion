@@ -3,6 +3,7 @@
 //
 
 #include "ApplicationContext.h"
+#include "Logs/ConsoleLogger.h"
 
 ApplicationContext &ApplicationContext::getInstance()
 {
@@ -10,7 +11,8 @@ ApplicationContext &ApplicationContext::getInstance()
     return ctxt;
 }
 
-ApplicationContext::ApplicationContext()
+ApplicationContext::ApplicationContext() :
+    _logger{ new ConsoleLogger{ } }
 {
 
 }

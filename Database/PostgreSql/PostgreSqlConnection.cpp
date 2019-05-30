@@ -2,6 +2,7 @@
 // Created by kir on 22.05.19.
 //
 
+#include "../../ApplicationContext.h"
 #include "PostgreSqlConnection.h"
 #include "PostgreSqlQuery.h"
 
@@ -13,10 +14,7 @@ PostgreSqlConnection::PostgreSqlConnection(PGconn *conn) :
 
 }
 
-PostgreSqlConnection::~PostgreSqlConnection()
-{
-
-}
+PostgreSqlConnection::~PostgreSqlConnection() = default;
 
 void PostgreSqlConnection::close() noexcept
 {
@@ -25,8 +23,16 @@ void PostgreSqlConnection::close() noexcept
 
 std::shared_ptr<AbstractDatabaseQuery> PostgreSqlConnection::execute(std::string_view sql) const
 {
-    auto query = PQexec(_connection, sql.data());
-    return std::shared_ptr<AbstractDatabaseQuery>(new PostgreSqlQuery(query));
+    std::shared_ptr<AbstractDatabaseQuery> query(
+            new PostgreSqlQuery(
+                    PQexec(_connection, sql.data())));
+
+    if (!query->valid())
+    {
+        ApplicationContext::getInstance().logger()->error(PQerrorMessage(_connection));
+    }
+
+    return query;
 }
 
 void PostgreSqlConnection::beginExecute(std::string_view sql,
@@ -48,18 +54,18 @@ void PostgreSqlConnection::beginTransaction(IsolationLevel isolationLevel)
 
         case Serializable: sql += "SERIALIZABLE;"; break;
     }
-    PQexec(_connection, sql.c_str());
+    execute(sql.c_str());
     _inTransaction = true;
 }
 
 void PostgreSqlConnection::commitTransaction()
 {
-
+    execute("COMMIT;");
 }
 
 void PostgreSqlConnection::rollbackTransaction()
 {
-
+    execute("ROLLBACK;");
 }
 
 bool PostgreSqlConnection::isInTransaction() const noexcept
