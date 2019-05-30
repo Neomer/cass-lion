@@ -6,6 +6,7 @@
 #include "Database/PostgreSql/PostgreSqlDatabasePatcher.h"
 #include "Database/PostgreSql/PostgreSqlDatabaseConfiguration.h"
 #include "Database/Exceptions/DatabaseConnectionRefusedException.h"
+#include "Core/Uuid.h"
 
 int main(int argc, char **argv) {
     auto app = Gtk::Application::create(argc, argv);

@@ -36,7 +36,21 @@ add_executable(${PROJECT_NAME} main.cpp
         Async/Exceptions/BackgroundExecutorAlreadyBusy.cpp Async/Exceptions/BackgroundExecutorAlreadyBusy.h
         Async/AsyncCallback.h
         Database/QueryResultCallback.cpp Database/QueryResultCallback.h
-        ApplicationContext.cpp ApplicationContext.h Windows/DatabaseConnectionStatusWidget.cpp Windows/DatabaseConnectionStatusWidget.h Database/AbstractDatabasePatch.cpp Database/AbstractDatabasePatch.h Database/PostgreSql/Patches/InitialPatch.cpp Database/PostgreSql/Patches/InitialPatch.h Database/Exceptions/QueryExecuteException.cpp Database/Exceptions/QueryExecuteException.h Database/PostgreSql/PostgreSqlDatabasePatcher.cpp Database/PostgreSql/PostgreSqlDatabasePatcher.h Database/AbstractDatabasePatcher.cpp Database/AbstractDatabasePatcher.h Database/AbstractQueryValue.cpp Database/AbstractQueryValue.h Logs/AbstractLogger.cpp Logs/AbstractLogger.h Logs/ConsoleLogger.cpp Logs/ConsoleLogger.h Database/PostgreSql/PostgreSqlQueryValue.cpp Database/PostgreSql/PostgreSqlQueryValue.h)
+        ApplicationContext.cpp ApplicationContext.h
+        Windows/DatabaseConnectionStatusWidget.cpp
+        Windows/DatabaseConnectionStatusWidget.h
+        Database/AbstractDatabasePatch.cpp Database/AbstractDatabasePatch.h
+        Database/PostgreSql/Patches/InitialPatch.cpp Database/PostgreSql/Patches/InitialPatch.h
+        Database/Exceptions/QueryExecuteException.cpp Database/Exceptions/QueryExecuteException.h
+        Database/PostgreSql/PostgreSqlDatabasePatcher.cpp Database/PostgreSql/PostgreSqlDatabasePatcher.h
+        Database/AbstractDatabasePatcher.cpp Database/AbstractDatabasePatcher.h
+        Database/AbstractQueryValue.cpp Database/AbstractQueryValue.h
+        Logs/AbstractLogger.cpp Logs/AbstractLogger.h
+        Logs/ConsoleLogger.cpp Logs/ConsoleLogger.h
+        Database/PostgreSql/PostgreSqlQueryValue.cpp Database/PostgreSql/PostgreSqlQueryValue.h
+        Core/Uuid.cpp Core/Uuid.h
+        Core/AbstractRandomGenerator.cpp Core/AbstractRandomGenerator.h
+        Core/RandomGenerator.cpp Core/RandomGenerator.h Core/IStringable.h)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${PostgreSQL_LIBRARIES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${GTKMM3_LIBRARIES})
