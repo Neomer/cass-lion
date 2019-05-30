@@ -4,6 +4,7 @@
 #include <glib.h>
 #include <iostream>
 #include "MainWindow.h"
+#include "../ApplicationContext.h"
 
 MainWindow::MainWindow() :
     AbstractWindowWithShortcuts(),
@@ -23,6 +24,11 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onSearchRequest() const {
+
+}
+
+void MainWindow::onUnrecognizedShortcut(const KeyCombination &keyCombination)
+{
 
 }
 

@@ -13,11 +13,30 @@ INCLUDE_DIRECTORIES(${GTKMM3_INCLUDE_DIRS})
 LINK_DIRECTORIES(${GTKMM3_LIBRARY_DIRS})
 
 add_executable(${PROJECT_NAME} main.cpp
-        MainWindow.cpp MainWindow.h
+        Windows/MainWindow.cpp Windows/MainWindow.h
         AbstractKeyEventedWindow.cpp AbstractKeyEventedWindow.h
         KeyCombination.cpp KeyCombination.h
         AbstractWindowWithShortcuts.cpp AbstractWindowWithShortcuts.h
-        Database/AbstractDatabaseDriver.cpp Database/AbstractDatabaseDriver.h)
+        Database/AbstractDatabaseDriver.cpp Database/AbstractDatabaseDriver.h
+        Database/PostgreSql/PostgreSqlDriver.cpp
+        Database/PostgreSql/PostgreSqlDriver.h
+        Database/AbstractDatabaseConfiguration.cpp
+        Database/AbstractDatabaseConfiguration.h
+        Database/AbstractDatabaseConnectionPool.cpp Database/AbstractDatabaseConnectionPool.h
+        Database/AbstractDatabaseConnection.cpp Database/AbstractDatabaseConnection.h
+        Database/PostgreSql/PostgreSqlDatabaseConfiguration.cpp Database/PostgreSql/PostgreSqlDatabaseConfiguration.h
+        Database/PostgreSql/PostgreSqlConnection.cpp Database/PostgreSql/PostgreSqlConnection.h
+        Exceptions/Exception.cpp Exceptions/Exception.h
+        Database/Exceptions/DatabaseDriverException.cpp Database/Exceptions/DatabaseDriverException.h
+        Database/Exceptions/DatabaseConnectionRefusedException.cpp Database/Exceptions/DatabaseConnectionRefusedException.h
+        Database/AbstractDatabaseQuery.cpp Database/AbstractDatabaseQuery.h
+        Database/PostgreSql/PostgreSqlQuery.cpp Database/PostgreSql/PostgreSqlQuery.h
+        Async/AbstractBackgroundExecutor.cpp Async/AbstractBackgroundExecutor.h
+        Async/AbstractTask.cpp Async/AbstractTask.h
+        Async/Exceptions/BackgroundExecutorAlreadyBusy.cpp Async/Exceptions/BackgroundExecutorAlreadyBusy.h
+        Async/AsyncCallback.h
+        Database/QueryResultCallback.cpp Database/QueryResultCallback.h
+        ApplicationContext.cpp ApplicationContext.h Windows/DatabaseConnectionStatusWidget.cpp Windows/DatabaseConnectionStatusWidget.h Database/AbstractDatabasePatch.cpp Database/AbstractDatabasePatch.h Database/PostgreSql/Patches/InitialPatch.cpp Database/PostgreSql/Patches/InitialPatch.h Database/Exceptions/QueryExecuteException.cpp Database/Exceptions/QueryExecuteException.h Database/PostgreSql/PostgreSqlDatabasePatcher.cpp Database/PostgreSql/PostgreSqlDatabasePatcher.h Database/AbstractDatabasePatcher.cpp Database/AbstractDatabasePatcher.h Database/AbstractQueryValue.cpp Database/AbstractQueryValue.h Logs/AbstractLogger.cpp Logs/AbstractLogger.h Logs/ConsoleLogger.cpp Logs/ConsoleLogger.h Database/PostgreSql/PostgreSqlQueryValue.cpp Database/PostgreSql/PostgreSqlQueryValue.h)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${PostgreSQL_LIBRARIES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${GTKMM3_LIBRARIES})
