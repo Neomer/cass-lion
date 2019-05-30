@@ -8,6 +8,7 @@
 #include <string_view>
 #include <memory>
 #include "Logs/AbstractLogger.h"
+#include "Core/AbstractRandomGenerator.h"
 
 class ApplicationContext
 {
@@ -20,6 +21,8 @@ public:
 
     const std::shared_ptr<AbstractLogger> &logger() const;
 
+    const AbstractRandomGenerator *getDefaultRandomGenerator() const;
+
 private:
     ApplicationContext();
     ~ApplicationContext();
@@ -29,6 +32,7 @@ private:
     ApplicationContext& operator=(const ApplicationContext &&) = delete;
 
     std::shared_ptr<AbstractLogger> _logger;
+    AbstractRandomGenerator *_randomGenerator;
 };
 
 

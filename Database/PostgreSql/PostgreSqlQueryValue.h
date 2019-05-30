@@ -36,6 +36,8 @@ public:
 
     bool toBool() const override;
 
+    Uuid toUuid() const override;
+
 private:
     std::string_view _value;
     int _oid;

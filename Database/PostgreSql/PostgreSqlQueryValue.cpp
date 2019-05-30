@@ -64,3 +64,8 @@ bool PostgreSqlQueryValue::toBool() const
 {
     return !strcasecmp(_value.data(), "t") || !strcasecmp(_value.data(), "1") || !strcasecmp(_value.data(), "true");
 }
+
+Uuid PostgreSqlQueryValue::toUuid() const
+{
+    return Uuid::FromString(_value.data());
+}
