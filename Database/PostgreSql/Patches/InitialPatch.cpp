@@ -25,7 +25,7 @@ uint32_t InitialPatch::version() const
     return 0;
 }
 
-void InitialPatch::createAdminUser(std::shared_ptr<AbstractDatabaseConnection> &connection) const
+void InitialPatch::createAdminUser(std::shared_ptr<AbstractDatabaseConnection> &connection)
 {
     connection->execute("CREATE USER cass_admin WITH\n"
                         "\tLOGIN\n"
@@ -39,7 +39,7 @@ void InitialPatch::createAdminUser(std::shared_ptr<AbstractDatabaseConnection> &
 
 }
 
-void InitialPatch::createDatabaseInfo(std::shared_ptr<AbstractDatabaseConnection> &connection) const
+void InitialPatch::createDatabaseInfo(std::shared_ptr<AbstractDatabaseConnection> &connection)
 {
 
     connection->execute("CREATE TABLE public.\"DatabaseInformation\"\n"

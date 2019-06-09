@@ -5,6 +5,7 @@
 #include "../../ApplicationContext.h"
 #include "PostgreSqlConnection.h"
 #include "PostgreSqlQuery.h"
+#include "../Exceptions/QueryExecuteException.h"
 
 PostgreSqlConnection::PostgreSqlConnection(PGconn *conn) :
         AbstractDatabaseConnection(),
@@ -29,7 +30,9 @@ std::shared_ptr<AbstractDatabaseQuery> PostgreSqlConnection::execute(std::string
 
     if (!query->valid())
     {
-        ApplicationContext::getInstance().logger()->error(PQerrorMessage(_connection));
+        auto errorMessage = PQerrorMessage(_connection);
+        ApplicationContext::getInstance().logger()->error(errorMessage);
+        throw QueryExecuteException(sql, errorMessage);
     }
 
     return query;

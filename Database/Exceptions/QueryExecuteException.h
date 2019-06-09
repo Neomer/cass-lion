@@ -10,9 +10,14 @@
 class QueryExecuteException : public Exception
 {
 public:
-    QueryExecuteException();
+    QueryExecuteException(std::string_view sql, std::string_view message);
 
-    QueryExecuteException(const std::string_view &message);
+    QueryExecuteException(std::string_view message);
+
+    std::string_view getSql() const;
+
+private:
+    std::string _sql;
 };
 
 

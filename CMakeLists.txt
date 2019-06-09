@@ -50,7 +50,7 @@ add_executable(${PROJECT_NAME} main.cpp
         Database/PostgreSql/PostgreSqlQueryValue.cpp Database/PostgreSql/PostgreSqlQueryValue.h
         Core/Uuid.cpp Core/Uuid.h
         Core/AbstractRandomGenerator.cpp Core/AbstractRandomGenerator.h
-        Core/RandomGenerator.cpp Core/RandomGenerator.h Core/IStringable.h)
+        Core/RandomGenerator.cpp Core/RandomGenerator.h Core/IStringable.h Database/PostgreSql/Patches/CreateProductsPatch.cpp Database/PostgreSql/Patches/CreateProductsPatch.h)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${PostgreSQL_LIBRARIES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${GTKMM3_LIBRARIES})

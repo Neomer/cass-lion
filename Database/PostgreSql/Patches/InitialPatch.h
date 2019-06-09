@@ -24,8 +24,8 @@ public:
     uint32_t version() const override;
 
 private:
-    void createAdminUser(std::shared_ptr<AbstractDatabaseConnection> &connection) const;
-    void createDatabaseInfo(std::shared_ptr<AbstractDatabaseConnection> &connection) const;
+    static void createAdminUser(std::shared_ptr<AbstractDatabaseConnection> &connection);
+    static void createDatabaseInfo(std::shared_ptr<AbstractDatabaseConnection> &connection);
 };
 
 

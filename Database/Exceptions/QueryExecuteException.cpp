@@ -4,13 +4,18 @@
 
 #include "QueryExecuteException.h"
 
-QueryExecuteException::QueryExecuteException()
+QueryExecuteException::QueryExecuteException(std::string_view message) :
+        Exception(message)
 {
 
 }
 
-QueryExecuteException::QueryExecuteException(const std::string_view &message) :
-        Exception(message)
+QueryExecuteException::QueryExecuteException(std::string_view sql, std::string_view message)
 {
 
+}
+
+std::string_view QueryExecuteException::getSql() const
+{
+    return std::string_view(_sql);
 }

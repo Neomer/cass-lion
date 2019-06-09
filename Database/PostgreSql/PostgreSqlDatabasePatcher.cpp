@@ -5,8 +5,10 @@
 #include <algorithm>
 #include "PostgreSqlDatabasePatcher.h"
 #include "../Exceptions/QueryExecuteException.h"
-#include "Patches/InitialPatch.h"
 #include "../../ApplicationContext.h"
+
+#include "Patches/InitialPatch.h"
+#include "Patches/CreateProductsPatch.h"
 
 PostgreSqlDatabasePatcher::PostgreSqlDatabasePatcher(AbstractDatabaseConnectionPool &abstractDatabaseConnectionPool) :
         AbstractDatabasePatcher(abstractDatabaseConnectionPool)
@@ -69,10 +71,12 @@ void PostgreSqlDatabasePatcher::patch()
         {
             if (startPatch == -1 || static_cast<uint32_t >(startPatch) < patch->version())
             {
+                ApplicationContext::getInstance().logger()->debug(std::string("Применяется патч: ") + std::to_string(patch->version()));
                 connection->beginTransaction();
                 try
                 {
                     patch->execute(getConnection());
+                    connection->execute(std::string(R"(UPDATE public."DatabaseInformation" SET "Version"=)") + std::to_string(patch->version()) + ";");
                     connection->commitTransaction();
                 }
                 catch (QueryExecuteException &e)
@@ -93,7 +97,8 @@ const std::vector<std::shared_ptr<AbstractDatabasePatch>> PostgreSqlDatabasePatc
 {
     // Сюда все патчи
     auto vector = std::vector<std::shared_ptr<AbstractDatabasePatch>> {
-        std::shared_ptr<AbstractDatabasePatch>(new InitialPatch())
+        std::shared_ptr<AbstractDatabasePatch>(new InitialPatch()),
+        std::shared_ptr<AbstractDatabasePatch>(new CreateProductsPatch()),
     };
 
     std::sort(vector.begin(), vector.end(),
