@@ -38,12 +38,6 @@ std::shared_ptr<AbstractDatabaseQuery> PostgreSqlConnection::execute(std::string
     return query;
 }
 
-void PostgreSqlConnection::beginExecute(std::string_view sql,
-                                        AsyncCallback<std::shared_ptr<AbstractDatabaseQuery>> &callback) const
-{
-
-}
-
 void PostgreSqlConnection::beginTransaction(IsolationLevel isolationLevel)
 {
     std::string sql = "BEGIN TRANSACTION ISOLATION LEVEL ";
@@ -74,4 +68,18 @@ void PostgreSqlConnection::rollbackTransaction()
 bool PostgreSqlConnection::isInTransaction() const noexcept
 {
     return _inTransaction;
+}
+
+std::future<std::shared_ptr<AbstractDatabaseQuery>> PostgreSqlConnection::beginExecute(std::string_view sql) const
+{
+    std::packaged_task<std::shared_ptr<AbstractDatabaseQuery>(std::string_view)> queryTask(
+            [this](std::string_view sql) -> std::shared_ptr<AbstractDatabaseQuery> {
+                return execute(sql);
+            });
+
+    auto future = queryTask.get_future();
+    std::thread thread(std::move(queryTask), sql);
+    thread.detach();
+
+    return future;
 }

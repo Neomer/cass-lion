@@ -59,6 +59,7 @@ void CreateProductsPatch::createProductTypeTable(std::shared_ptr<AbstractDatabas
     connection->execute(R"(CREATE FUNCTION public."RemoveProductsOnDeleteProductType"() RETURNS trigger LANGUAGE 'plpgsql' NOT LEAKPROOF
                         AS $BODY$begin
                             update public."Product" set "Type"=NULL where "Type"=OLD."Uid";
+                            return OLD;
                         end;$BODY$;)");
     connection->execute(R"(ALTER FUNCTION public."RemoveProductsOnDeleteProductType"() OWNER TO cass_admin;)");
     connection->execute(R"(CREATE TRIGGER "RemoveProductsOnDelete" AFTER DELETE ON public."ProductType" FOR EACH ROW
@@ -67,7 +68,8 @@ void CreateProductsPatch::createProductTypeTable(std::shared_ptr<AbstractDatabas
     // Create onUpdate trigger
     connection->execute(R"(CREATE FUNCTION public."UpdateProductsOnUpdateProductTypeUid"() RETURNS trigger LANGUAGE 'plpgsql' NOT LEAKPROOF
                         AS $BODY$begin
-                        update public."Product" set "Type"=NEW."Uid" where "Type"=OLD."Uid";
+                            update public."Product" set "Type"=NEW."Uid" where "Type"=OLD."Uid";
+                            return NEW;
                         end;$BODY$;)");
     connection->execute(R"(ALTER FUNCTION public."UpdateProductsOnUpdateProductTypeUid"() OWNER TO cass_admin;)");
     connection->execute(R"(CREATE TRIGGER "UpdateProductsOnUpdateUid" AFTER UPDATE OF "Uid" ON public."ProductType" FOR EACH ROW

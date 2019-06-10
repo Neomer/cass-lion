@@ -18,7 +18,7 @@ public:
 
     std::shared_ptr<AbstractDatabaseQuery> execute(std::string_view sql) const override;
 
-    void beginExecute(std::string_view sql, AsyncCallback<std::shared_ptr<AbstractDatabaseQuery>> &callback) const override;
+    std::future<std::shared_ptr<AbstractDatabaseQuery>> beginExecute(std::string_view sql) const override;
 
     void beginTransaction(IsolationLevel isolationLevel) override;
 
