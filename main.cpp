@@ -28,8 +28,6 @@ int main(int argc, char **argv) {
 
         PostgreSqlDatabasePatcher patcher(connection);
         patcher.patch();
-
-        connection->execute(R"(insert into "dfvdfv")");
     }
     catch (DatabaseConnectionRefusedException &e)
     {
