@@ -10,7 +10,9 @@ QueryExecuteException::QueryExecuteException(std::string_view message) :
 
 }
 
-QueryExecuteException::QueryExecuteException(std::string_view sql, std::string_view message)
+QueryExecuteException::QueryExecuteException(std::string_view sql, std::string_view message) :
+    Exception{ message },
+    _sql{ sql }
 {
 
 }
