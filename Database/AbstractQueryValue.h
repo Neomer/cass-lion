@@ -8,6 +8,7 @@
 #include <inttypes.h>
 #include <string_view>
 #include "../Core/Uuid.h"
+#include "../Core/DateTime.h"
 
 class AbstractQueryValue
 {
@@ -34,6 +35,8 @@ public:
     virtual bool toBool() const = 0;
 
     virtual Uuid toUuid() const = 0;
+
+    virtual DateTime toDateTime() const = 0;
 };
 
 

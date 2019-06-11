@@ -69,3 +69,8 @@ Uuid PostgreSqlQueryValue::toUuid() const
 {
     return Uuid::FromString(_value.data());
 }
+
+DateTime PostgreSqlQueryValue::toDateTime() const
+{
+    return DateTime();
+}

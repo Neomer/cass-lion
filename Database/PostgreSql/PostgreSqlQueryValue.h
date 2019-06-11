@@ -38,6 +38,8 @@ public:
 
     Uuid toUuid() const override;
 
+    DateTime toDateTime() const override;
+
 private:
     std::string_view _value;
     int _oid;
