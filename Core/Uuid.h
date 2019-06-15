@@ -35,6 +35,8 @@ public:
 
     bool equals(const Uuid &other) const;
 
+    bool isEmpty() const;
+
     std::string toString() const override;
 
     void toString(std::string &buffer) const override;

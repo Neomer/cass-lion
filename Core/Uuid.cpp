@@ -131,3 +131,8 @@ std::ostream &operator<<(std::ostream &os, const Uuid &uuid)
     return os;
 }
 
+bool Uuid::isEmpty() const
+{
+    return _bytes[0] == 0 && _bytes[1] == 0 && _bytes[2] == 0 && _bytes[3] == 0;
+}
+

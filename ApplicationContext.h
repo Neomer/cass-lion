@@ -9,6 +9,7 @@
 #include <memory>
 #include "Logs/AbstractLogger.h"
 #include "Core/AbstractRandomGenerator.h"
+#include "Database/AbstractDatabaseConnectionPool.h"
 
 class ApplicationContext
 {
@@ -23,6 +24,8 @@ public:
 
     const AbstractRandomGenerator *getDefaultRandomGenerator() const;
 
+    AbstractDatabaseConnectionPool *getDatabaseConnectionPool();
+
 private:
     ApplicationContext();
     ~ApplicationContext();
@@ -31,8 +34,11 @@ private:
     ApplicationContext& operator=(const ApplicationContext &) = delete;
     ApplicationContext& operator=(const ApplicationContext &&) = delete;
 
+    static void loadDatabaseConfig(AbstractDatabaseConfiguration *configuration);
+
     std::shared_ptr<AbstractLogger> _logger;
     AbstractRandomGenerator *_randomGenerator;
+    AbstractDatabaseConnectionPool *_connectionPool;
 };
 
 

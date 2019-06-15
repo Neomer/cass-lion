@@ -2,9 +2,12 @@
 // Created by kir on 23.05.19.
 //
 
+#include <utility>
 #include "ApplicationContext.h"
 #include "Logs/ConsoleLogger.h"
 #include "Core/RandomGenerator.h"
+#include "Database/PostgreSql/PostgreSqlDriver.h"
+#include "Database/PostgreSql/PostgreSqlDatabaseConfiguration.h"
 
 ApplicationContext &ApplicationContext::getInstance()
 {
@@ -22,10 +25,16 @@ ApplicationContext::ApplicationContext() :
 ApplicationContext::~ApplicationContext()
 {
     delete _randomGenerator;
+    delete _connectionPool;
 }
 
 void ApplicationContext::load(std::string_view filename)
 {
+    std::unique_ptr<AbstractDatabaseConfiguration> cfg(new PostgreSqlDatabaseConfiguration());
+
+    loadDatabaseConfig(cfg.get());
+    _connectionPool = new AbstractDatabaseConnectionPool(
+            new PostgreSqlDriver(std::move(cfg)));
 
 }
 
@@ -42,4 +51,19 @@ const std::shared_ptr<AbstractLogger> &ApplicationContext::logger() const
 const AbstractRandomGenerator *ApplicationContext::getDefaultRandomGenerator() const
 {
     return _randomGenerator;
+}
+
+AbstractDatabaseConnectionPool *ApplicationContext::getDatabaseConnectionPool()
+{
+    return _connectionPool;
+}
+
+void ApplicationContext::loadDatabaseConfig(AbstractDatabaseConfiguration *configuration)
+{
+    auto pgConfig = static_cast<PostgreSqlDatabaseConfiguration *>(configuration);
+    pgConfig->setHost("localhost");
+    pgConfig->setPort("5432");
+    pgConfig->setUsername("postgres");
+    pgConfig->setPassword("123456");
+    pgConfig->setDbname("Cass");
 }

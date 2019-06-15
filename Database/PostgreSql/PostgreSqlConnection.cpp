@@ -6,11 +6,13 @@
 #include "PostgreSqlConnection.h"
 #include "PostgreSqlQuery.h"
 #include "../Exceptions/QueryExecuteException.h"
+#include "../../Core/FlagGuard.h"
 
-PostgreSqlConnection::PostgreSqlConnection(PGconn *conn) :
+PostgreSqlConnection::PostgreSqlConnection(PGconn* conn) :
         AbstractDatabaseConnection(),
         _connection{ conn },
-        _inTransaction{ false }
+        _inTransaction{ false },
+        _isBusy{ false }
 {
 
 }
@@ -22,8 +24,9 @@ void PostgreSqlConnection::close() noexcept
     PQfinish(_connection);
 }
 
-std::shared_ptr<AbstractDatabaseQuery> PostgreSqlConnection::execute(std::string_view sql) const
+std::shared_ptr<AbstractDatabaseQuery> PostgreSqlConnection::execute(std::string_view sql)
 {
+    FlagGuard flagGuard(_isBusy);
     std::shared_ptr<AbstractDatabaseQuery> query(
             new PostgreSqlQuery(
                     PQexec(_connection, sql.data())));
@@ -70,7 +73,7 @@ bool PostgreSqlConnection::isInTransaction() const noexcept
     return _inTransaction;
 }
 
-std::future<std::shared_ptr<AbstractDatabaseQuery>> PostgreSqlConnection::beginExecute(std::string_view sql) const
+std::future<std::shared_ptr<AbstractDatabaseQuery>> PostgreSqlConnection::beginExecute(std::string_view sql)
 {
     std::packaged_task<std::shared_ptr<AbstractDatabaseQuery>(std::string_view)> queryTask(
             [this](std::string_view sql) -> std::shared_ptr<AbstractDatabaseQuery> {
@@ -82,4 +85,9 @@ std::future<std::shared_ptr<AbstractDatabaseQuery>> PostgreSqlConnection::beginE
     thread.detach();
 
     return future;
+}
+
+bool PostgreSqlConnection::isBusy() const noexcept
+{
+    return _isBusy.load();
 }

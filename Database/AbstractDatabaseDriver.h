@@ -11,7 +11,7 @@
 
 class AbstractDatabaseDriver {
 public:
-    AbstractDatabaseDriver(AbstractDatabaseConfiguration *configuration);
+    AbstractDatabaseDriver(std::unique_ptr<AbstractDatabaseConfiguration> configuration);
     virtual ~AbstractDatabaseDriver() = default;
 
     /// Создает новое подключение к базе данных. Подключается к базе данных, используя переданную конфигурацию.
@@ -25,7 +25,7 @@ protected:
     const AbstractDatabaseConfiguration *getConfiguration() const;
 
 private:
-    AbstractDatabaseConfiguration *_configuration;
+    std::unique_ptr<AbstractDatabaseConfiguration> _configuration;
 };
 
 

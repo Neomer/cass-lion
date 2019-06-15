@@ -5,15 +5,15 @@
 #include "AbstractDatabaseDriver.h"
 #include <exception>
 
-AbstractDatabaseDriver::AbstractDatabaseDriver(AbstractDatabaseConfiguration *configuration) :
-    _configuration{ configuration }
+AbstractDatabaseDriver::AbstractDatabaseDriver(std::unique_ptr<AbstractDatabaseConfiguration> configuration) :
+    _configuration{ std::move(configuration) }
 {
-    if (configuration == nullptr) {
+    if (_configuration.get() == nullptr) {
         throw std::invalid_argument("Configuration mustn't be null!");
     }
 }
 
 const AbstractDatabaseConfiguration *AbstractDatabaseDriver::getConfiguration() const
 {
-    return _configuration;
+    return _configuration.get();
 }

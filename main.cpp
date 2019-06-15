@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include <gtkmm/application.h>
 #include "Windows/MainWindow.h"
 #include "ApplicationContext.h"
@@ -14,14 +15,14 @@ int main(int argc, char **argv) {
     const char *cfgFilename = "config/context.xml";
     ApplicationContext::getInstance().load(cfgFilename);
 
-    PostgreSqlDatabaseConfiguration rootCfg;
-    rootCfg.setHost("localhost");
-    rootCfg.setPort("5432");
-    rootCfg.setUsername("postgres");
-    rootCfg.setPassword("123456");
-    rootCfg.setDbname("Cass");
+    std::unique_ptr<AbstractDatabaseConfiguration> rootCfg(new PostgreSqlDatabaseConfiguration());
+    ((PostgreSqlDatabaseConfiguration *)rootCfg.get())->setHost("localhost");
+    ((PostgreSqlDatabaseConfiguration *)rootCfg.get())->setPort("5432");
+    ((PostgreSqlDatabaseConfiguration *)rootCfg.get())->setUsername("postgres");
+    ((PostgreSqlDatabaseConfiguration *)rootCfg.get())->setPassword("123456");
+    ((PostgreSqlDatabaseConfiguration *)rootCfg.get())->setDbname("Cass");
 
-    PostgreSqlDriver drv(&rootCfg);
+    PostgreSqlDriver drv(std::move(rootCfg));
     try
     {
         auto connection = drv.open();
@@ -31,7 +32,7 @@ int main(int argc, char **argv) {
     }
     catch (DatabaseConnectionRefusedException &e)
     {
-        ApplicationContext::getInstance().logger()->error(std::string("Не удалось подключться к базе! ") + e.what());
+        ApplicationContext::getInstance().logger()->error(std::string("Не удалось подключиться к базе! ") + e.what());
         return -1;
     }
 

@@ -2,13 +2,14 @@
 // Created by kir on 21.05.19.
 //
 #include <libpq-fe.h>
+#include <utility>
 #include "PostgreSqlDriver.h"
 #include "PostgreSqlDatabaseConfiguration.h"
 #include "PostgreSqlConnection.h"
 #include "../Exceptions/DatabaseConnectionRefusedException.h"
 
-PostgreSqlDriver::PostgreSqlDriver(AbstractDatabaseConfiguration *configuration) :
-        AbstractDatabaseDriver(configuration)
+PostgreSqlDriver::PostgreSqlDriver(std::unique_ptr<AbstractDatabaseConfiguration> configuration) :
+        AbstractDatabaseDriver{ std::move(configuration) }
 {
 
 }
@@ -36,7 +37,8 @@ std::shared_ptr<AbstractDatabaseConnection> PostgreSqlDriver::open()
         throw DatabaseConnectionRefusedException(this, PQerrorMessage(conn));
     }
 
-    return std::shared_ptr<AbstractDatabaseConnection>(new PostgreSqlConnection(conn));
+    return std::shared_ptr<AbstractDatabaseConnection>(
+            new PostgreSqlConnection(conn));
 }
 
 const char *PostgreSqlDriver::getDatabaseDriverName()

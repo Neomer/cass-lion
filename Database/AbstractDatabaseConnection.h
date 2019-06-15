@@ -33,14 +33,14 @@ public:
      * @return Указатель на результат выполнения запроса.
      * @throws QueryExecuteException Не удалосьт выполнить SQL-запрос.
      */
-    virtual std::shared_ptr<AbstractDatabaseQuery> execute(std::string_view sql) const = 0;
+    virtual std::shared_ptr<AbstractDatabaseQuery> execute(std::string_view sql) = 0;
 
     /**
      * Асинхронное выполнение SQL-запроса.
      * @param sql
      * @return Возвращает std::future с указателем на результат выполнения запроса.
      */
-    virtual std::future<std::shared_ptr<AbstractDatabaseQuery>> beginExecute(std::string_view sql) const = 0;
+    virtual std::future<std::shared_ptr<AbstractDatabaseQuery>> beginExecute(std::string_view sql) = 0;
 
     /**
      * Открывает новую транзакцию для текущего подключения.
@@ -68,6 +68,11 @@ public:
      * Закрывает соединение.
      */
     virtual void close() noexcept = 0;
+
+    /**
+     * Возвращает TRUE, если соединение уже выполняет запрос.
+     */
+    virtual bool isBusy() const noexcept = 0;
 };
 
 

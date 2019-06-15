@@ -9,7 +9,7 @@
 
 class PostgreSqlDriver : public AbstractDatabaseDriver {
 public:
-    PostgreSqlDriver(AbstractDatabaseConfiguration* configuration);
+    PostgreSqlDriver(std::unique_ptr<AbstractDatabaseConfiguration> configuration);
 
     ~PostgreSqlDriver() override;
 
