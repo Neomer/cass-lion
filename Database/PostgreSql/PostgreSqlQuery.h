@@ -29,7 +29,7 @@ public:
 
     uint16_t columns() const override;
 
-    uint16_t columnByName(std::string_view name) const override;
+    std::optional<uint16_t> columnByName(std::string_view name) const override;
 
     std::shared_ptr<AbstractQueryValue> value(uint16_t column) const override;
 

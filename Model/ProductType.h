@@ -18,14 +18,31 @@ public:
 
     void setName(const std::string &name);
 
-protected:
-    void databaseInsert() const override;
-
-    void databaseUpdate() const override;
+    void fromQuery(std::shared_ptr<AbstractDatabaseQuery> query) override;
 
 private:
     std::string _name;
 };
 
+//@metadata ProductType
+class ProductTypeMetadata : public BaseEntityMetadata
+{
+public:
+    ProductTypeMetadata();
+
+    ~ProductTypeMetadata() override = default;
+
+    const char *getClassName() const override;
+
+    const char *getTableName() const override;
+
+    const std::vector<const char *> &getFields() const override;
+
+    std::shared_ptr<AbstractEntity> createInstance() const override;
+
+private:
+    std::vector <const char *> _fields;
+};
+//@endmetadata
 
 #endif //CASS_LION_PRODUCTTYPE_H

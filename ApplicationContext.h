@@ -10,6 +10,7 @@
 #include "Logs/AbstractLogger.h"
 #include "Core/AbstractRandomGenerator.h"
 #include "Database/AbstractDatabaseConnectionPool.h"
+#include "Services/MetadataService.h"
 
 class ApplicationContext
 {
@@ -26,6 +27,8 @@ public:
 
     AbstractDatabaseConnectionPool *getDatabaseConnectionPool();
 
+    MetadataService *getMetadataService() const;
+
 private:
     ApplicationContext();
     ~ApplicationContext();
@@ -39,6 +42,7 @@ private:
     std::shared_ptr<AbstractLogger> _logger;
     AbstractRandomGenerator *_randomGenerator;
     AbstractDatabaseConnectionPool *_connectionPool;
+    MetadataService *_metadataService;
 };
 
 

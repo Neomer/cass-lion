@@ -3,15 +3,19 @@
 //
 
 #include "AbstractEntity.h"
+#include "../ApplicationContext.h"
+#include "EntityMetadata.h"
 
-AbstractEntity::AbstractEntity(const Uuid &id) :
-        _id(id)
+AbstractEntity::AbstractEntity(const Uuid &id, const Uuid &typeUid) :
+        _id(id),
+        _typeUid{ typeUid }
 {
 
 }
 
-AbstractEntity::AbstractEntity() :
-    _id(Uuid::Empty())
+AbstractEntity::AbstractEntity(const Uuid &typeUid) :
+    _id(Uuid::Empty()),
+    _typeUid{ typeUid }
 {
 
 }
@@ -23,7 +27,14 @@ bool AbstractEntity::isNew() const
 
 void AbstractEntity::save() const
 {
-    isNew() ? this->databaseInsert() : this->databaseUpdate();
+    auto metadata = dynamic_cast<const EntityMetadata *>(ApplicationContext::getInstance().getMetadataService()->findMetadata(getTypeUid()));
+    if (metadata == nullptr) {
+        throw std::runtime_error("Метаданные для класса сущности не зарегистрированы!");
+    }
+    auto manager = metadata->getManager();
+    if (manager == nullptr) {
+        throw std::runtime_error("Менеджер для сущности не зарегистрирован!");
+    }
 }
 
 std::future<void> AbstractEntity::beginSave() const
@@ -38,4 +49,44 @@ std::future<void> AbstractEntity::beginSave() const
     thread.detach();
 
     return future;
+}
+
+const Uuid &AbstractEntity::getTypeUid() const noexcept
+{
+    return _typeUid;
+}
+
+const Uuid &AbstractEntity::getUid() const
+{
+    return _id;
+}
+
+void AbstractEntity::setUid(const Uuid &uid)
+{
+    _id = uid;
+}
+
+BaseEntityMetadata::BaseEntityMetadata(const Uuid &typeUid,
+        std::vector<const char *> fields,
+        AbstractEntityManager *manager) :
+        EntityMetadata(typeUid),
+        _manager{ manager }
+{
+    _fields.swap(fields);
+    _fields.push_back("Uid");
+}
+
+const std::vector<const char *> &BaseEntityMetadata::getFields() const
+{
+    return _fields;
+}
+
+const AbstractEntityManager *BaseEntityMetadata::getManager() const
+{
+    return _manager;
+}
+
+const char *BaseEntityMetadata::getUidField() const
+{
+    return "Uid";
 }

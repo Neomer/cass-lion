@@ -6,31 +6,54 @@
 #define CASS_LION_ABSTRACTENTITY_H
 
 #include <future>
-#include "../Database/AbstractDatabaseQuery.h"
+#include <vector>
 #include "../Core/Uuid.h"
+#include "EntityMetadata.h"
+#include "../Database/AbstractDatabaseQuery.h"
 
 class AbstractEntity
 {
 public:
-    AbstractEntity(const Uuid &id);
+    AbstractEntity(const Uuid &id, const Uuid &typeUid);
 
-    AbstractEntity();
+    explicit AbstractEntity(const Uuid &typeUid);
+
+    const Uuid &getTypeUid() const noexcept;
 
     bool isNew() const;
-
-    virtual void loadFromQuery(std::shared_ptr<AbstractDatabaseQuery> query) = 0;
 
     void save() const;
 
     std::future<void> beginSave() const;
 
-protected:
-    virtual void databaseInsert() const = 0;
+    virtual void fromQuery(std::shared_ptr<AbstractDatabaseQuery> query) = 0;
 
-    virtual void databaseUpdate() const = 0;
+    const Uuid &getUid() const;
+
+    void setUid(const Uuid &id);
 
 private:
-    Uuid _id;
+    Uuid _id, _typeUid;
+};
+
+class BaseEntityMetadata : public EntityMetadata
+{
+public:
+    BaseEntityMetadata(const Uuid &typeUid,
+            std::vector<const char *> fields,
+            AbstractEntityManager *manager);
+
+    ~BaseEntityMetadata() = default;
+
+    const std::vector<const char *> &getFields() const override;
+
+    const AbstractEntityManager *getManager() const override;
+
+    const char *getUidField() const override;
+
+private:
+    std::vector<const char *> _fields;
+    AbstractEntityManager *_manager;
 };
 
 

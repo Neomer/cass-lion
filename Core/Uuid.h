@@ -29,6 +29,10 @@ public:
 
     Uuid(Uuid &&other);
 
+    Uuid(uint32_t *data);
+
+    Uuid(uint32_t b1, uint32_t b2, uint32_t b3, uint32_t b4);
+
     Uuid &operator =(const Uuid &other);
 
     Uuid &operator =(Uuid &&other);

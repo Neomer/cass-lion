@@ -9,6 +9,7 @@
 #include <cstddef>
 #include <string_view>
 #include <memory>
+#include <optional>
 #include "AbstractQueryValue.h"
 
 class AbstractDatabaseQuery
@@ -29,7 +30,7 @@ public:
 
     virtual uint16_t columns() const = 0;
 
-    virtual uint16_t columnByName(std::string_view name) const = 0;
+    virtual std::optional<uint16_t> columnByName(std::string_view name) const = 0;
 
     virtual std::shared_ptr<AbstractQueryValue> value(uint16_t column) const = 0;
 

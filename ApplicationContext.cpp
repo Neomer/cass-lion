@@ -17,9 +17,10 @@ ApplicationContext &ApplicationContext::getInstance()
 
 ApplicationContext::ApplicationContext() :
     _logger{ new ConsoleLogger{ } },
-    _randomGenerator{ new RandomGenerator{ } }
+    _randomGenerator{ new RandomGenerator{ } },
+    _metadataService{ new MetadataService{ } }
 {
-
+    _metadataService->start();
 }
 
 ApplicationContext::~ApplicationContext()
@@ -66,4 +67,9 @@ void ApplicationContext::loadDatabaseConfig(AbstractDatabaseConfiguration *confi
     pgConfig->setUsername("postgres");
     pgConfig->setPassword("123456");
     pgConfig->setDbname("Cass");
+}
+
+MetadataService *ApplicationContext::getMetadataService() const
+{
+    return _metadataService->isStarted() ? _metadataService : nullptr;
 }

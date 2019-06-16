@@ -20,6 +20,16 @@ Uuid Uuid::Empty()
     memset(result._bytes, 0, Uuid::Size());
 }
 
+Uuid::Uuid(uint32_t *data)
+{
+    memcpy(_bytes, data, Uuid::Size());
+}
+
+Uuid::Uuid(uint32_t b1, uint32_t b2, uint32_t b3, uint32_t b4)
+{
+    _bytes[0] = b1; _bytes[1] = b2; _bytes[2] = b3; _bytes[3] = b4;
+}
+
 Uuid Uuid::FromString(std::string_view data)
 {
     std::regex re(R"(^\s*\{?[a-fA-F0-9]{8}\-[a-fA-F0-9]{4}\-[a-fA-F0-9]{4}\-[a-fA-F0-9]{4}\-[a-fA-F0-9]{12}\}?\s*$)");
@@ -135,4 +145,5 @@ bool Uuid::isEmpty() const
 {
     return _bytes[0] == 0 && _bytes[1] == 0 && _bytes[2] == 0 && _bytes[3] == 0;
 }
+
 

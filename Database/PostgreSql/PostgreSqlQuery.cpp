@@ -6,6 +6,8 @@
 #include "PostgreSqlQuery.h"
 #include "PostgreSqlQueryValue.h"
 
+using namespace std::string_literals;
+
 PostgreSqlQuery::PostgreSqlQuery(PGresult *result) :
         AbstractDatabaseQuery(),
         _result{ result }
@@ -25,7 +27,7 @@ PostgreSqlQuery::~PostgreSqlQuery()
 
 bool PostgreSqlQuery::first()
 {
-    if (!valid())
+    if (!valid() || _rowCount == 0)
     {
         return false;
     }
@@ -71,9 +73,10 @@ uint16_t PostgreSqlQuery::columns() const
     return _columnCount;
 }
 
-uint16_t PostgreSqlQuery::columnByName(std::string_view name) const
+std::optional<uint16_t> PostgreSqlQuery::columnByName(std::string_view name) const
 {
-    return PQfnumber(_result, name.data());
+    auto idx = PQfnumber(_result, ("\""s + name.data() + "\"").c_str());
+    return idx < 0 ? std::nullopt : std::optional<uint16_t>{ idx };
 }
 
 std::shared_ptr<AbstractQueryValue> PostgreSqlQuery::value(uint16_t column) const
