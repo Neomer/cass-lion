@@ -26,7 +26,7 @@ public:
 
     std::future<void> beginSave() const;
 
-    virtual void fromQuery(std::shared_ptr<AbstractDatabaseQuery> query) = 0;
+    virtual void fromQuery(std::shared_ptr<AbstractDatabaseQuery> query);
 
     const Uuid &getUid() const;
 

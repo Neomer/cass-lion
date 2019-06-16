@@ -66,6 +66,11 @@ void AbstractEntity::setUid(const Uuid &uid)
     _id = uid;
 }
 
+void AbstractEntity::fromQuery(std::shared_ptr<AbstractDatabaseQuery> query)
+{
+    setUid(query->value(query->columnByName("Uid").value())->toUuid());
+}
+
 BaseEntityMetadata::BaseEntityMetadata(const Uuid &typeUid,
         std::vector<const char *> fields,
         AbstractEntityManager *manager) :

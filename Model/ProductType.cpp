@@ -32,8 +32,8 @@ void ProductType::setName(const std::string &name)
 
 void ProductType::fromQuery(std::shared_ptr<AbstractDatabaseQuery> query)
 {
-    auto nameFieldIdx = query->columnByName("Name");
-    setName(query->value(nameFieldIdx.value())->toString());
+    AbstractEntity::fromQuery(query);
+    setName(query->value(query->columnByName("Name").value())->toString());
 }
 
 ProductTypeMetadata::ProductTypeMetadata() :
