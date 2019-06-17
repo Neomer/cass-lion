@@ -18,6 +18,7 @@ Uuid Uuid::Empty()
 {
     Uuid result;
     memset(result._bytes, 0, Uuid::Size());
+    return result;
 }
 
 Uuid::Uuid(uint32_t *data)

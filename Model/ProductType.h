@@ -10,6 +10,8 @@
 class ProductType : public AbstractEntity
 {
 public:
+    static const Uuid TypeUid();
+
     ProductType(const Uuid &id, std::string_view name);
 
     ProductType();

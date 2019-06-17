@@ -7,6 +7,10 @@
 
 #define TYPE_UID        Uuid{ 10, 0, 0, 1 }
 
+const Uuid ProductType::TypeUid() {
+    return TYPE_UID;
+}
+
 ProductType::ProductType(const Uuid &id, std::string_view name) :
         AbstractEntity(id, TYPE_UID),
         _name{ name }
@@ -37,9 +41,7 @@ void ProductType::fromQuery(std::shared_ptr<AbstractDatabaseQuery> query)
 }
 
 ProductTypeMetadata::ProductTypeMetadata() :
-        BaseEntityMetadata(TYPE_UID,
-                { "Name" },
-                new ProductTypeManager(this))
+        BaseEntityMetadata(TYPE_UID, { "Name" }, new ProductTypeManager(this))
 {
 
 }

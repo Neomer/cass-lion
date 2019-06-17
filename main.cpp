@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    auto metadata = dynamic_cast<const EntityMetadata *>(ApplicationContext::getInstance().getMetadataService()->findMetadata("ProductType"));
+    auto metadata = dynamic_cast<const EntityMetadata *>(ApplicationContext::getInstance().getMetadataService()->findMetadata(ProductType::TypeUid()));
     auto entity = metadata->getManager()->getByUid(Uuid(10, 0, 0, 1));
 
     if (entity.get() == nullptr) {
