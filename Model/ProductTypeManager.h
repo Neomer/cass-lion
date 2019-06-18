@@ -13,8 +13,6 @@ public:
     ProductTypeManager(const EntityMetadata *metadata);
 
     virtual ~ProductTypeManager();
-
-    std::shared_ptr<AbstractEntity> getByUid(const Uuid &uid) const override;
 };
 
 

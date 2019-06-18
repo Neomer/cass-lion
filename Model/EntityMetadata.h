@@ -8,9 +8,10 @@
 #include <vector>
 #include <memory>
 #include "../Core/ClassMetadata.h"
-#include "AbstractEntityManager.h"
 
 class AbstractEntity;
+
+class AbstractEntityManager;
 
 class EntityMetadata : public ClassMetadata
 {

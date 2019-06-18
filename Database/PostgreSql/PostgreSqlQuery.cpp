@@ -37,7 +37,7 @@ bool PostgreSqlQuery::first()
 
 bool PostgreSqlQuery::eof() const
 {
-    return !valid() || (_currentRow > _rowCount);
+    return !valid() || (_currentRow >= _rowCount);
 }
 
 void PostgreSqlQuery::close() noexcept

@@ -10,6 +10,7 @@
 #include "Core/Uuid.h"
 
 #include "Model/EntityMetadata.h"
+#include "Model/AbstractEntityManager.h"
 #include "Model/ProductType.h"
 
 using namespace std::string_literals;
@@ -42,14 +43,16 @@ int main(int argc, char **argv) {
     }
 
     auto metadata = dynamic_cast<const EntityMetadata *>(ApplicationContext::getInstance().getMetadataService()->findMetadata(ProductType::TypeUid()));
-    auto entity = metadata->getManager()->getByUid(Uuid(10, 0, 0, 1));
-
-    if (entity.get() == nullptr) {
-        ApplicationContext::getInstance().logger()->error("Запись не найдена!");
+    auto entityList = metadata->getManager()->findAll();
+    if (!entityList.empty()) {
+        for (auto &entity : entityList) {
+            auto productType = dynamic_cast<ProductType *>(entity.get());
+            ApplicationContext::getInstance().logger()->error("Тип продукта: ["s + productType->getUid().toString() + "] " + productType->getName());
+        }
     } else {
-        auto productType = dynamic_cast<ProductType *>(entity.get());
-        ApplicationContext::getInstance().logger()->error("Тип продукта: "s + productType->getName());
+        ApplicationContext::getInstance().logger()->error("Записей не найдено!");
     }
+
 
     MainWindow mainWindow;
 
